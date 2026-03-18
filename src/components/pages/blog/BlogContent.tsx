@@ -2,12 +2,9 @@
 
 import React from "react";
 import { ArrowLeft } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui";
 import { useRouter } from "next/navigation";
-
-interface BlogContentProps {
-  content: string;
-}
+import type { BlogContentProps } from "@/types/global";
 
 export function BlogContent({ content }: BlogContentProps) {
   const router = useRouter();

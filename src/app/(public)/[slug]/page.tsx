@@ -1,14 +1,10 @@
-import { notFound } from "next/navigation";
 import { getBlogBySlug } from "@/lib/api";
-import { BlogDetailsClient } from "@/components/pages/blog/BlogDetailsClient";
 import type { Metadata } from "next";
+import BlogDetailsWrapper from "./BlogDetailsWrapper";
+import type { PageParamsProps } from "@/types/global";
 
-interface Props {
-  params: Promise<{ slug: string }>;
-}
-
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params;
+export async function generateMetadata({ params }: PageParamsProps): Promise<Metadata> {
+  const { slug } = params;
   const blog = await getBlogBySlug(slug);
 
   if (!blog) return { title: "Page Not Found | Examify" };
@@ -24,13 +20,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function BlogPage({ params }: Props) {
-  const { slug } = await params;
-  const blog = await getBlogBySlug(slug);
-
-  if (!blog) {
-    notFound();
-  }
-
-  return <BlogDetailsClient blog={blog} />;
+export default function BlogPage({ params }: PageParamsProps) {
+  const { slug } = params;
+  return <BlogDetailsWrapper slug={slug} />;
 }

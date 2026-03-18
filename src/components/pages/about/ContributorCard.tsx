@@ -3,36 +3,9 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { 
-  Github, 
-  Linkedin, 
-  Mail, 
-  Twitter, 
-  Globe, 
-  Send, 
-  Facebook, 
-  Youtube, 
-  Instagram 
-} from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Contributor, SocialLinks } from "@/lib/data";
-
-const socialIcons: { [key in keyof SocialLinks]: React.ElementType } = {
-  globe: Globe,
-  send: Send,
-  facebook: Facebook,
-  youtube: Youtube,
-  github: Github,
-  instagram: Instagram,
-  mail: Mail,
-  linkedin: Linkedin,
-  twitter: Twitter,
-};
-
-interface ContributorCardProps {
-  contributor: Contributor;
-}
+import { Button, Badge } from "@/components/ui";
+import type { ContributorCardProps, SocialLinks } from "@/types/global";
+import { socialIcons } from "@/types/global";
 
 export function ContributorCard({ contributor }: ContributorCardProps) {
   return (

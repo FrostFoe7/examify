@@ -2,16 +2,26 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { Menu, LogIn } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
+import { Menu, LogIn, LayoutDashboard, LogOut } from "lucide-react";
+import { cn, maskRollNumber } from "@/lib/utils";
 import {
+  Button,
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet";
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+  Avatar,
+  AvatarFallback,
+} from "@/components/ui";
+import { ThemeToggle } from "@/components/shared";
+import { useAuthStore } from "@/store/useAuthStore";
 
 const navLinks = [
   { label: "হোম", href: "/" },
@@ -22,6 +32,9 @@ const navLinks = [
 
 export function Header() {
   const [isScrolled, setIsScrolled] = React.useState(false);
+  const { user, clearAuth } = useAuthStore();
+  const pathname = typeof window !== 'undefined' ? window.location.pathname : '';
+
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -59,7 +72,10 @@ export function Header() {
                 <Link
                   key={link.label}
                   href={link.href}
-                  className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
+                  className={cn(
+                    "text-sm font-medium text-muted-foreground hover:text-primary transition-colors",
+                    pathname === link.href && "text-primary"
+                  )}
                 >
                   {link.label}
                 </Link>
@@ -68,14 +84,49 @@ export function Header() {
           </div>
 
           <div className="flex items-center gap-4">
-            <div className="hidden md:flex items-center gap-2">
-              <Button asChild variant="ghost" size="sm" className="font-bold">
-                <Link href="/login">লগইন</Link>
-              </Button>
-              <Button asChild size="sm" className="font-bold rounded-full px-6">
-                <Link href="/register">নিবন্ধন করুন</Link>
-              </Button>
-            </div>
+            <ThemeToggle /> {/* Theme Toggle component */}
+
+            {user ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className="relative h-9 w-9 rounded-full">
+                    <Avatar className="h-8 w-8">
+                      <AvatarFallback>{user.name.substring(0, 1)}</AvatarFallback>
+                    </Avatar>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-56" align="end" forceMount>
+                  <DropdownMenuLabel className="font-normal">
+                    <div className="flex flex-col space-y-1">
+                      <p className="text-sm font-medium leading-none">{user.name}</p>
+                      <p className="text-xs leading-none text-muted-foreground">
+                        {maskRollNumber(user.roll_number)}
+                      </p>
+                    </div>
+                  </DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem asChild>
+                    <Link href="/dashboard">
+                      <LayoutDashboard className="mr-2 h-4 w-4" />
+                      <span>ড্যাশবোর্ড</span>
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => clearAuth()}>
+                    <LogOut className="mr-2 h-4 w-4" />
+                    <span>লগ আউট</span>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <div className="hidden md:flex items-center gap-2">
+                <Button asChild variant="ghost" size="sm" className="font-bold">
+                  <Link href="/login">লগইন</Link>
+                </Button>
+                <Button asChild size="sm" className="font-bold rounded-full px-6">
+                  <Link href="/register">নিবন্ধন করুন</Link>
+                </Button>
+              </div>
+            )}
 
             <Sheet>
               <SheetTrigger asChild>
@@ -92,21 +143,41 @@ export function Header() {
                     <Link
                       key={link.label}
                       href={link.href}
-                      className="text-lg font-semibold hover:text-primary transition-colors"
+                      className={cn(
+                        "text-lg font-semibold hover:text-primary transition-colors",
+                        pathname === link.href && "text-primary"
+                      )}
                     >
                       {link.label}
                     </Link>
                   ))}
                   <hr className="my-2" />
-                  <Button asChild variant="outline" className="w-full justify-start gap-2">
-                    <Link href="/login">
-                      <LogIn className="h-4 w-4" />
-                      লগইন
-                    </Link>
-                  </Button>
-                  <Button asChild className="w-full">
-                    <Link href="/register">নিবন্ধন করুন</Link>
-                  </Button>
+                  {user ? (
+                    <>
+                      <Button asChild variant="outline" className="w-full justify-start gap-2">
+                        <Link href="/dashboard">
+                          <LayoutDashboard className="mr-2 h-4 w-4" />
+                          <span>ড্যাশবোর্ড</span>
+                        </Link>
+                      </Button>
+                      <Button onClick={() => clearAuth()} className="w-full justify-start gap-2">
+                        <LogOut className="mr-2 h-4 w-4" />
+                        <span>লগ আউট</span>
+                      </Button>
+                    </>
+                  ) : (
+                    <>
+                      <Button asChild variant="outline" className="w-full justify-start gap-2">
+                        <Link href="/login">
+                          <LogIn className="h-4 w-4" />
+                          লগইন
+                        </Link>
+                      </Button>
+                      <Button asChild className="w-full">
+                        <Link href="/register">নিবন্ধন করুন</Link>
+                      </Button>
+                    </>
+                  )}
                 </div>
               </SheetContent>
             </Sheet>

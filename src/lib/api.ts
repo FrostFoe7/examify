@@ -1,4 +1,6 @@
-export async function getStats() {
+import { Blog, LoginData, RegisterData, Stats, Batch, Exam } from "@/types/global";
+
+export async function getStats(): Promise<Stats> {
   try {
     const res = await fetch(`${process.env.BACKEND_URL}/stats`, { next: { revalidate: 3600 } });
     if (!res.ok) throw new Error("Failed to fetch stats");
@@ -15,7 +17,7 @@ export async function getStats() {
   }
 }
 
-export async function getLiveBatches() {
+export async function getLiveBatches(): Promise<Batch[]> {
   try {
     const res = await fetch(`${process.env.BACKEND_URL}/batches`, { next: { revalidate: 3600 } });
     if (!res.ok) throw new Error("Failed to fetch batches");
@@ -27,7 +29,7 @@ export async function getLiveBatches() {
   }
 }
 
-export async function getPublicExams() {
+export async function getPublicExams(): Promise<Exam[]> {
   try {
     const res = await fetch(`${process.env.BACKEND_URL}/public-exams`, { next: { revalidate: 3600 } });
     if (!res.ok) throw new Error("Failed to fetch public exams");
@@ -39,7 +41,7 @@ export async function getPublicExams() {
   }
 }
 
-export async function getBlogBySlug(slug: string) {
+export async function getBlogBySlug(slug: string): Promise<Blog | null> {
   try {
     const res = await fetch(`${process.env.BACKEND_URL}/blog/${slug}`, { next: { revalidate: 3600 } });
     if (!res.ok) {
@@ -52,18 +54,6 @@ export async function getBlogBySlug(slug: string) {
     console.error(`Error fetching blog post (${slug}):`, error);
     return null;
   }
-}
-
-interface LoginData {
-  identifier: string;
-  password: string;
-}
-
-interface RegisterData {
-  name: string;
-  roll_number: string;
-  phone?: string;
-  password?: string;
 }
 
 export async function login(data: LoginData) {

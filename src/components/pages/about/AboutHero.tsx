@@ -2,11 +2,7 @@
 
 import React from "react";
 import { Heart, Globe, Target, Sparkles } from "lucide-react";
-
-interface AboutHeroProps {
-  title: string;
-  description: string;
-}
+import type { AboutHeroProps } from "@/types/global";
 
 export function AboutHero({ title, description }: AboutHeroProps) {
   return (

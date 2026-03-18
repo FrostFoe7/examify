@@ -1,28 +1,9 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { Badge, Button } from "@/components/ui";
 import { Users, BookOpen, Clock, ArrowUpRight } from "lucide-react";
-
-interface Batch {
-  id: string;
-  name: string;
-  slug: string;
-  description: string;
-  image_url: string;
-  price: number;
-  old_price: number;
-  live_exams_count: number;
-  lecture_notes_count: number;
-  standard_exams_count: number;
-  solve_sheets_count: number;
-  is_public: boolean;
-}
-
-interface CourseSectionProps {
-  batches: Batch[];
-}
+import type { CourseSectionProps } from "@/types/global";
 
 export function CourseSection({ batches }: CourseSectionProps) {
   return (

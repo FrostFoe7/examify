@@ -1,20 +1,8 @@
 import React from "react";
 import Link from "next/link";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { Badge, Button } from "@/components/ui";
 import { Trophy, Clock, Tag, ArrowRight, Zap } from "lucide-react";
-
-interface Exam {
-  id: string;
-  name: string;
-  batch_name: string;
-  batch_slug: string;
-  duration_minutes: number;
-}
-
-interface PublicArenaProps {
-  exams: Exam[];
-}
+import type { PublicArenaProps } from "@/types/global";
 
 export function PublicArena({ exams }: PublicArenaProps) {
   return (

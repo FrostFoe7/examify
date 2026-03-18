@@ -1,25 +1,9 @@
 "use client";
 
 import React from "react";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
-import { BlogHeader } from "./BlogHeader";
-import { BlogContent } from "./BlogContent";
-
-interface Blog {
-  id: string;
-  title: string;
-  content: string;
-  excerpt?: string;
-  image_url?: string;
-  category_name?: string;
-  author_name?: string;
-  created_at: string;
-}
-
-interface BlogDetailsClientProps {
-  blog: Blog;
-}
+import { Header, Footer } from "@/components/layout";
+import { BlogHeader, BlogContent } from "./index";
+import type { BlogDetailsClientProps } from "@/types/global";
 
 export function BlogDetailsClient({ blog }: BlogDetailsClientProps) {
   return (

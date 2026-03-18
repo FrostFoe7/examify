@@ -1,34 +1,4 @@
-export interface SocialLinks {
-  globe?: string;
-  send?: string;
-  facebook?: string;
-  youtube?: string;
-  github?: string;
-  instagram?: string;
-  mail?: string;
-  linkedin?: string;
-  twitter?: string;
-}
-
-export interface Contributor {
-  name: string;
-  role: string;
-  bio: string;
-  imageUrl: string;
-  social: SocialLinks;
-}
-
-export interface AboutContent {
-  title: string;
-  description: string;
-  sections: Array<{
-    title: string;
-    content: string;
-  }>;
-  team: {
-    heading: string;
-  };
-}
+import type { Contributor, AboutContent } from "@/types/global";
 
 export const aboutData = {
   aboutContent: {

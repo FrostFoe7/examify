@@ -1,6 +1,6 @@
 import React, { Suspense } from "react";
 import { Loader2 } from "lucide-react";
-import { RegisterForm } from "@/components/pages/auth/RegisterForm";
+import { RegisterForm } from "@/components/pages/auth";
 
 export default function RegisterPage() {
   return (

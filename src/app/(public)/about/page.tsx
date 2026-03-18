@@ -1,9 +1,6 @@
 import React from "react";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
-import { AboutHero } from "@/components/pages/about/AboutHero";
-import { AboutSections } from "@/components/pages/about/AboutSections";
-import { ContributorCard } from "@/components/pages/about/ContributorCard";
+import { Header, Footer } from "@/components/layout";
+import { AboutHero, AboutSections, ContributorCard } from "@/components/pages/about";
 import { aboutData } from "@/lib/data";
 
 export const metadata = {

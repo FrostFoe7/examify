@@ -2,12 +2,9 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation"; // Keep useSearchParams
 import { Eye, EyeOff, Loader2, ArrowRight, ShieldPlus, CheckCircle2 } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button, Input, Label, Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui";
 import { register } from "@/lib/api";
 
 export function RegisterForm() {
@@ -20,8 +17,7 @@ export function RegisterForm() {
   const [success, setSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   
-  const router = useRouter();
-  const searchParams = useSearchParams();
+  const searchParams = useSearchParams(); // Keep useSearchParams
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -34,7 +30,7 @@ export function RegisterForm() {
       if (res.status === "success") {
         setSuccess(true);
         setTimeout(() => {
-          router.push(`/login${searchParams.get("redirect") ? `?redirect=${searchParams.get("redirect")}` : ""}`);
+          window.location.href = `/login${searchParams.get("redirect") ? `?redirect=${searchParams.get("redirect")}` : ""}`;
         }, 3000);
       } else {
         setError(res.message || "নিবন্ধন ব্যর্থ হয়েছে। পুনরায় চেষ্টা করুন।");

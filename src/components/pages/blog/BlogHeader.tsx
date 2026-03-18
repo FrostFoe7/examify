@@ -4,21 +4,10 @@ import React from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, Calendar, User, Clock, Share2, BookOpen } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+import { Button, Badge } from "@/components/ui";
 import { format } from "date-fns";
 import { bn } from "date-fns/locale";
-
-interface BlogHeaderProps {
-  blog: {
-    title: string;
-    image_url?: string;
-    category_name?: string;
-    author_name?: string;
-    created_at: string;
-    excerpt?: string;
-  };
-}
+import type { BlogHeaderProps } from "@/types/global";
 
 export function BlogHeader({ blog }: BlogHeaderProps) {
   const router = useRouter();

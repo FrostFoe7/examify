@@ -2,14 +2,7 @@
 
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
-
-interface User {
-  id: string;
-  name: string;
-  roll_number: string;
-  phone?: string;
-  profile_picture_url?: string;
-}
+import { User } from "@/types/global";
 
 interface AuthState {
   user: User | null;

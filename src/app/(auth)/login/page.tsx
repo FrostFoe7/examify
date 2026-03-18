@@ -1,6 +1,6 @@
 import React, { Suspense } from "react";
 import { Loader2 } from "lucide-react";
-import { LoginForm } from "@/components/pages/auth/LoginForm";
+import { LoginForm } from "@/components/pages/auth";
 
 export default function LoginPage() {
   return (

@@ -4,12 +4,9 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Eye, EyeOff, Loader2, ArrowRight, ShieldCheck } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { useAuth } from "@/context/AuthContext";
+import { Button, Input, Label, Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui";
 import { login } from "@/lib/api";
+import { useAuthStore } from "@/store/useAuthStore"; // Import useAuthStore
 
 export function LoginForm() {
   const [identifier, setIdentifier] = useState("");
@@ -18,7 +15,7 @@ export function LoginForm() {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   
-  const { signIn } = useAuth();
+  const setAuth = useAuthStore((state) => state.setAuth); // Use setAuth from Zustand store
   const searchParams = useSearchParams();
   const redirectTo = searchParams.get("redirect") || "/";
 
@@ -31,7 +28,12 @@ export function LoginForm() {
       const res = await login({ identifier, password });
       
       if (res.status === "success") {
-        signIn(res.data.user, res.data.token, redirectTo);
+        setAuth(res.data.user, res.data.token); // Call setAuth from Zustand
+        if (redirectTo) {
+          window.location.href = redirectTo; // Perform client-side redirect
+        } else {
+          window.location.href = "/"; // Perform client-side redirect
+        }
       } else {
         setError(res.message || "লগইন ব্যর্থ হয়েছে। পুনরায় চেষ্টা করুন।");
       }

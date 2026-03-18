@@ -3,17 +3,9 @@
 import React from "react";
 import Link from "next/link";
 import { Zap, Users, BookOpen, Trophy, ArrowRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui";
 import { cn } from "@/lib/utils";
-
-interface HeroProps {
-  stats: {
-    usersCount: number;
-    examsCount: number;
-    batchesCount: number;
-    questionsCount: number;
-  };
-}
+import type { HeroProps } from "@/types/global";
 
 export function Hero({ stats }: HeroProps) {
   const statItems = [

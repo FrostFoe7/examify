@@ -2,13 +2,7 @@
 
 import React from "react";
 import { CheckCircle2, Star, Rocket, Shield } from "lucide-react";
-
-interface AboutSectionsProps {
-  sections: Array<{
-    title: string;
-    content: string;
-  }>;
-}
+import type { AboutSectionsProps } from "@/types/global";
 
 const icons = [Rocket, Shield, Star];
 
